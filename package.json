@@ -1,0 +1,19 @@
+{
+  "name": "apirest_practico",
+  "version": "1.0.0",
+  "description": "js",
+  "main": "index1.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natjcr/APIrest_Practico.git"
+  },
+  "author": "njcr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/natjcr/APIrest_Practico/issues"
+  },
+  "homepage": "https://github.com/natjcr/APIrest_Practico#readme"
+}
