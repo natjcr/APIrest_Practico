@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/natjcr/APIrest_Practico/issues"
   },
-  "homepage": "https://github.com/natjcr/APIrest_Practico#readme"
+  "homepage": "https://github.com/natjcr/APIrest_Practico#readme",
+  "dependencies": {
+    "uniq": "^1.0.1"
+  }
 }
