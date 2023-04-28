@@ -1,3 +1,5 @@
+axios.get('');
+
 const api = axios.create({
     beseURL: 'https://api.themoviedb.org/3/',
     headers: {
@@ -16,6 +18,9 @@ function createMovies(movies, container) {
     movies.forEach(movie => {  
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-container');
+        movieContainer.addEventListener('click', () => {
+            location.hash = '#movie=' + movie.id;
+        });
 
         const movieImg = document.createElement('img');
         movieImg.classList.add('movie-img');
@@ -55,6 +60,7 @@ async function getTrendingMoviesPreview() {
     const data = await res.json();
 
     const movies = data.results;
+    console.log(movies);
 
     createMovies(movies, trendingMoviesPreviewList);
 }
@@ -80,4 +86,30 @@ async function getMoviesByCategory(id) {
     const movies = data.results;
 
     createMovies(movies, genericSection);
+}
+
+async function getMoviesBySearch(query) {
+    const res = await fetch('https://api.themoviedb.org/3/search/movie?api_key=' + API_KEY, {
+        params: {
+            query,
+        },
+    });
+    const data = await res.json();
+
+    const movies = data.results;
+
+    createMovies(movies, genericSection);
+}
+async function getMovieById(id) {
+    const { data: movie } = await api('movie/' + id);
+
+    const movieImgUrl = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+    console.log(movieImgUrl)
+    headerSection.style.background = `url(${movieImgUrl})`;
+
+    movieDetailTitle.textContent = movie.title;
+    movieDetailDescription.textContent = movie.overview;
+    movieDetailScore.textContent = movie.movie_average;
+    
+    createCategories(movie.genres, movieDetailCategoriesList);
 }

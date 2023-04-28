@@ -1,5 +1,5 @@
 searchFormBtn.addEventListener('click', () => {
-    location.hash = '#search';
+      location.hash = '#search' + searchFormInput.value;
 });
 
 trendingBtn.addEventListener('click', () => {
@@ -7,7 +7,8 @@ trendingBtn.addEventListener('click', () => {
 });
 
 arrowBtn.addEventListener('click', () => {
-    location.hash = '#home';
+    history.back();
+    //location.hash = '#home';
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
@@ -46,7 +47,7 @@ function homePage() {
     trendingPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
     genericSection.classList.add('inactive');
-    movieDetailSection.classList.add('inecative');
+    movieDetailSection.classList.add('inactive');
     
 
     getTrendingMoviesPreview();
@@ -66,7 +67,7 @@ function categoriesPage() {
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
-    movieDetailSection.classList.add('inecative');
+    movieDetailSection.classList.add('inactive');
 
     //['#category,' 'id-name']
     const [_, categoryData] = location.hash.split('='); 
@@ -74,39 +75,7 @@ function categoriesPage() {
 
     headerCategoryTitle.innerHTML = categoryName;
     
-    getMoviesByCategory();
-}
-function searchPage() {
-    console.log('search');
-
-    headerSection.classList.remove('header-container--long');
-    headerSection.style.background = '';
-    arrowBtn.classList.remove('inactive');
-    arrowBtn.classList.remove('header-arrow--white');
-    headerTitle.classList.add('inactive');
-    headerCategoryTitle.classList.remove('inactive');
-    searchForm.classList.remove('inactive');
-
-    trendingPreviewSection.classList.add('inactive');
-    categoriesPreviewSection.classList.add('inactive');
-    genericSection.classList.remove('inactive');
-    movieDetailSection.classList.add('inecative');
-}
-function trendsPage() {
-    console.log('trends');
-
-    headerSection.classList.remove('header-container--long');
-    headerSection.style.background = '';
-    arrowBtn.classList.remove('inactive');
-    arrowBtn.classList.remove('header-arrow--white');
-    headerTitle.classList.add('inactive');
-    headerCategoryTitle.classList.remove('inactive');
-    searchForm.classList.remove('inactive');
-
-    trendingPreviewSection.classList.add('inactive');
-    categoriesPreviewSection.classList.add('inactive');
-    genericSection.classList.remove('inactive');
-    movieDetailSection.classList.add('inecative');
+    getMoviesByCategory(categoryId);
 }
 function movieDetailsPage() {
     console.log('movie');
@@ -122,5 +91,51 @@ function movieDetailsPage() {
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.add('inactive');
-    movieDetailSection.classList.remove('inecative');
+    movieDetailSection.classList.remove('inactive');
+
+    //['#movi,' 'lo que se buscó']
+    const [_, movieId] = location.hash.split('='); 
+    getMoviesBySearch(movieId);
+    
+    getMovieById(movieId);
+}
+function searchPage() {
+    console.log('search');
+
+    headerSection.classList.remove('header-container--long');
+    headerSection.style.background = '';
+    arrowBtn.classList.remove('inactive');
+    arrowBtn.classList.remove('header-arrow--white');
+    headerTitle.classList.add('inactive');
+    headerCategoryTitle.classList.add('inactive');
+    searchForm.classList.remove('inactive');
+
+    trendingPreviewSection.classList.add('inactive');
+    categoriesPreviewSection.classList.add('inactive');
+    genericSection.classList.remove('inactive');
+    movieDetailSection.classList.add('inactive');
+
+    //['#search,' 'lo que se buscó']
+    const [_, query] = location.hash.split('='); 
+    getMoviesBySearch(query);
+}
+function trendsPage() {
+    console.log('trends');
+
+    headerSection.classList.remove('header-container--long');
+    headerSection.style.background = '';
+    arrowBtn.classList.remove('inactive');
+    arrowBtn.classList.remove('header-arrow--white');
+    headerTitle.classList.add('inactive');
+    headerCategoryTitle.classList.remove('inactive');
+    searchForm.classList.remove('inactive');
+
+    trendingPreviewSection.classList.add('inactive');
+    categoriesPreviewSection.classList.add('inactive');
+    genericSection.classList.remove('inactive');
+    movieDetailSection.classList.add('inactive');
+
+    headerCategoryTitle.innerHTML = 'Tendencias';
+
+    getTrendingMovies();
 }
