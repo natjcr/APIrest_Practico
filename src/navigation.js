@@ -1,3 +1,4 @@
+let maxPage;
 let page = 1;
 let infiniteScroll;
 
@@ -131,6 +132,8 @@ searchFormBtn.addEventListener('click', () => {
     // ['#search', 'platzi']
     const [_, query] = location.hash.split('=');
     getMoviesBySearch(query);
+
+    infiniteScroll = getPaginatedMoviesBySearch(query);
   }
   
   function trendsPage() {
